@@ -1,0 +1,75 @@
+:root {
+  --bg: #08090a;
+  --surface: #101113;
+  --surface-raised: #17181b;
+  --border: #25272c;
+  --border-strong: #3a3d44;
+
+  --text: #a4a8b0;
+  --text-h: #f3f4f6;
+  --text-muted: #6d717a;
+
+  --orange: #ff6a13;
+  --orange-soft: rgba(255, 106, 19, 0.12);
+  --orange-glow: rgba(255, 106, 19, 0.45);
+  --blue: #2e8bff;
+  --blue-soft: rgba(46, 139, 255, 0.12);
+  --blue-glow: rgba(46, 139, 255, 0.4);
+
+  --font-judul: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --font-isi: "IBM Plex Sans", system-ui, "Segoe UI", sans-serif;
+  --font-kode: ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  font-family: var(--font-isi);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text);
+  color-scheme: dark;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background-color: var(--bg);
+  /* kisi tipis seperti kertas milimeter */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-judul);
+  font-weight: 600;
+  color: var(--text-h);
+  line-height: 1.15;
+}
+
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

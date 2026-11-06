@@ -1,0 +1,458 @@
+/* ==========================================================
+   Tata letak halaman
+   ========================================================== */
+.halaman {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+
+.seksi {
+  padding-top: 56px;
+}
+
+/* ==========================================================
+   KepalaHalaman
+   ========================================================== */
+.kepala {
+  position: relative;
+  overflow: hidden;
+  padding: 88px 0 64px;
+  border-bottom: 1px solid var(--border);
+}
+
+.kepala h1 {
+  position: relative;
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 7vw, 4.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.kepala__subjudul {
+  position: relative;
+  max-width: 52ch;
+  margin-top: 20px;
+  font-size: 1.05rem;
+}
+
+.kepala__status {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 4px 12px 4px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  font-family: var(--font-kode);
+  font-size: 0.82rem;
+  color: var(--text-h);
+}
+
+.kepala__titik {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 10px var(--orange-glow);
+  animation: berdenyut 2.4s ease-in-out infinite;
+}
+
+/* Satu-satunya elemen dekoratif besar: radar dengan sapuan oranye */
+.kepala__radar {
+  position: absolute;
+  top: 24px;
+  right: -80px;
+  width: 400px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background:
+    repeating-radial-gradient(
+      circle,
+      transparent 0 48px,
+      var(--blue-soft) 48px 49px
+    ),
+    conic-gradient(from 0deg, var(--orange-glow), transparent 22%);
+  -webkit-mask-image: radial-gradient(circle, #000 52%, transparent 71%);
+  mask-image: radial-gradient(circle, #000 52%, transparent 71%);
+  animation: sapu 16s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes sapu {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes berdenyut {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ==========================================================
+   JudulSeksi
+   ========================================================== */
+.judul-seksi {
+  margin-bottom: 24px;
+  padding-left: 14px;
+  border-left: 3px solid var(--blue);
+}
+
+.judul-seksi h2 {
+  font-size: 1.6rem;
+}
+
+.judul-seksi p {
+  margin-top: 4px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================
+   TagTeknologi (daftar tag dipakai KartuProfil & KartuProyek)
+   ========================================================== */
+.daftar-tag {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  padding: 2px 9px;
+  border: 1px solid var(--blue-soft);
+  border-radius: 2px;
+  background: var(--blue-soft);
+  font-size: 0.8rem;
+  color: #8dbfff;
+}
+
+/* ==========================================================
+   LencanaStatus
+   ========================================================== */
+.lencana {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+.lencana__titik {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.lencana--selesai .lencana__titik {
+  background: var(--blue);
+  box-shadow: 0 0 8px var(--blue-glow);
+}
+
+.lencana--berjalan .lencana__titik {
+  background: var(--orange);
+  box-shadow: 0 0 8px var(--orange-glow);
+}
+
+/* ==========================================================
+   KartuProfil
+   ========================================================== */
+.kartu-profil {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 640px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--surface);
+}
+
+.kartu-profil__foto {
+  flex: none;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--orange);
+  box-shadow: 0 0 18px var(--orange-soft);
+}
+
+.kartu-profil__inisial {
+  display: grid;
+  place-items: center;
+  background: var(--surface-raised);
+  font-family: var(--font-judul);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+.kartu-profil__isi {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.kartu-profil__isi h3 {
+  font-size: 1.4rem;
+}
+
+.kartu-profil__peran {
+  margin-top: 2px;
+  color: var(--text-muted);
+}
+
+.kartu-profil__data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 0;
+}
+
+.kartu-profil__data dt {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.kartu-profil__data dd {
+  margin: 0;
+  font-family: var(--font-kode);
+  font-size: 0.92rem;
+  color: var(--text-h);
+}
+
+.kartu-profil__status {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 2px 10px;
+  border-radius: 2px;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.kartu-profil__status--aktif {
+  background: var(--blue-soft);
+  color: #8dbfff;
+}
+
+.kartu-profil__status--cuti {
+  background: var(--orange-soft);
+  color: #ffa66b;
+}
+
+/* ==========================================================
+   FilterKategori
+   ========================================================== */
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter__tombol {
+  padding: 6px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    background-color 0.2s;
+}
+
+.filter__tombol:hover {
+  border-color: var(--orange);
+  color: var(--text-h);
+}
+
+.filter__tombol--aktif {
+  border-color: var(--orange);
+  background: var(--orange-soft);
+  color: var(--text-h);
+  box-shadow: 0 0 14px var(--orange-soft);
+}
+
+/* ==========================================================
+   DaftarProyek
+   ========================================================== */
+.jumlah-proyek {
+  margin-bottom: 16px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.daftar-proyek {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* ==========================================================
+   KartuProyek
+   ========================================================== */
+.kartu-proyek {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--surface);
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+
+.kartu-proyek:hover {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 1px var(--orange-soft), 0 12px 32px -12px var(--orange-glow);
+}
+
+.kartu-proyek__visual {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 112px;
+  padding: 12px 16px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 85% 20%, var(--blue-soft), transparent 55%),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    var(--surface-raised);
+  background-size: auto, 20px 20px, 20px 20px, auto;
+}
+
+/* Garis pindai oranye yang menyapu panel saat kartu disorot */
+.kartu-proyek__visual::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--orange);
+  box-shadow: 0 0 14px var(--orange);
+  opacity: 0;
+}
+
+.kartu-proyek:hover .kartu-proyek__visual::after {
+  animation: pindai 0.9s ease-out forwards;
+}
+
+@keyframes pindai {
+  from {
+    left: 0;
+    opacity: 1;
+  }
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.kartu-proyek__kode {
+  font-family: var(--font-kode);
+  font-size: 1.35rem;
+  color: var(--blue);
+  text-shadow: 0 0 12px var(--blue-glow);
+}
+
+.kartu-proyek__kategori {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.kartu-proyek__isi {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 16px 20px;
+}
+
+.kartu-proyek__baris {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kartu-proyek__tahun {
+  font-family: var(--font-kode);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.kartu-proyek__isi h3 {
+  font-size: 1.2rem;
+}
+
+.kartu-proyek__isi > p {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.kartu-proyek__tautan {
+  align-self: flex-start;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--orange);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ==========================================================
+   KakiHalaman
+   ========================================================== */
+.kaki {
+  margin-top: 72px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================
+   Responsif
+   ========================================================== */
+@media (max-width: 640px) {
+  .halaman {
+    padding: 0 16px 40px;
+  }
+
+  .kepala {
+    padding: 56px 0 44px;
+  }
+
+  .kepala__radar {
+    top: -60px;
+    right: -170px;
+    width: 300px;
+    opacity: 0.6;
+  }
+
+  .kartu-profil {
+    flex-direction: column;
+    padding-top: 56px;
+  }
+
+  .daftar-proyek {
+    grid-template-columns: 1fr;
+  }
+}
