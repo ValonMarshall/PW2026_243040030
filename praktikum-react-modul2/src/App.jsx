@@ -1,64 +1,149 @@
-import { useState } from "react";
-import "./App.css";
-import Kotak from "./Kotak";
+// src/App.jsx
+import { useState, useEffect } from 'react';
+import './App.css';
+import Kartu from './Kartu';
+import Penghitung from './Penghitung';
+import FormTugas from './FormTugas';
+import ItemTugas from './ItemTugas';
 
 function App() {
-  const [text, setText] = useState("");
-  const [tugas, setTugas] = useState([]); //state untuk menyimpan data tugas yang diinputkan
+  // 1. State utama: coba ambil dari localStorage, jika kosong pakai data contoh
+  const [daftarTugas, setDaftarTugas] = useState(() => {
+    const dataTersimpan = localStorage.getItem('daftar-tugas');
+    if (dataTersimpan) {
+      return JSON.parse(dataTersimpan); // ubah teks JSON kembali menjadi array
+    }
+    return [
+      { id: 1, judul: 'Install Node.js dan Vite', selesai: true },
+      { id: 2, judul: 'Pelajari useState', selesai: false },
+    ];
+  });
 
-  const tambah = (event) => {
-    event.preventDefault(); //agar halaman tida refresh saat tombol submit ditekan
-    if (text.trim() === "") return; //jika input kosong, tidak menambahkan data
-    setTugas([...tugas, text]); //menambahkan data baru ke array tugas dengan text yang diinputkan
-    setText(""); //mengosongkan input setelah data ditambahkan
+  // Tugas 1: state filter ('semua' | 'belum' | 'selesai')
+  const [filter, setFilter] = useState('semua');
+
+  // Efek A: dijalankan SEKALI saat App pertama kali tampil
+  useEffect(() => {
+    console.log('Aplikasi Daftar Tugas siap digunakan!');
+  }, []);
+
+  // Efek B: perbarui judul tab peramban setiap daftarTugas berubah
+  useEffect(() => {
+    const sisa = daftarTugas.filter((tugas) => !tugas.selesai).length;
+    document.title = `(${sisa}) Tugas Belum Selesai`;
+  }, [daftarTugas]);
+
+  // Efek C: simpan daftarTugas ke localStorage setiap kali berubah
+  useEffect(() => {
+    localStorage.setItem('daftar-tugas', JSON.stringify(daftarTugas));
+  }, [daftarTugas]);
+
+  // 2. Menambah tugas: buat array BARU berisi tugas lama + tugas baru
+  const tambahTugas = (judul) => {
+    const tugasBaru = { id: Date.now(), judul: judul, selesai: false };
+    setDaftarTugas([...daftarTugas, tugasBaru]);
   };
 
-  const hapus = (indexDataYangDihapus) => {
-    //fungsi untuk menghapus data dari array tugas berdasarkan index
-    const dataBaru = tugas.filter((_, index) => index !== indexDataYangDihapus); //menggunakan filter untuk membuat array baru tanpa data yang dihapus
-    setTugas(dataBaru);
+  // 3. Mengubah status selesai: salin tugas yang dicentang, biarkan yang lain
+  const ubahStatus = (id) => {
+    const daftarBaru = daftarTugas.map((tugas) => {
+      if (tugas.id === id) {
+        return { ...tugas, selesai: !tugas.selesai }; // salinan dengan status dibalik
+      }
+      return tugas; // tugas lain tidak berubah
+    });
+    setDaftarTugas(daftarBaru);
   };
+
+  // 4. Menghapus tugas: ambil semua tugas KECUALI yang id-nya sama
+  const hapusTugas = (id) => {
+    setDaftarTugas(daftarTugas.filter((tugas) => tugas.id !== id));
+  };
+
+  // Tugas 2: hapus semua tugas yang sudah selesai
+  const hapusSelesai = () => {
+    setDaftarTugas(daftarTugas.filter((tugas) => !tugas.selesai));
+  };
+
+  // 5. Nilai turunan: dihitung dari state, tidak perlu state baru
+  const jumlahSelesai = daftarTugas.filter((tugas) => tugas.selesai).length;
+
+  // Tugas 1: saring daftar sesuai filter SEBELUM di-.map()
+  const tugasTampil = daftarTugas.filter((tugas) => {
+    if (filter === 'belum') return !tugas.selesai;
+    if (filter === 'selesai') return tugas.selesai;
+    return true; // 'semua'
+  });
+
+  const pilihanFilter = [
+    { nilai: 'semua', label: 'Semua' },
+    { nilai: 'belum', label: 'Belum Selesai' },
+    { nilai: 'selesai', label: 'Selesai' },
+  ];
 
   return (
-    <>
-      <div className="App">
-        <h1>Selamat datang di Aplikasi React!</h1>
+    <div className="wadah">
+      <h1 className="judul">Daftar Tugas Praktikum</h1>
+      <p className="subjudul">Laboratorium Informatika - Modul 2: React Lanjutan</p>
 
-        <Kotak judul="Kotak 1">
-          <p>Ini adalah isi dari kotak pertama.</p>
-          <p>Ini adalah contoh aplikasi React sederhana.</p>
+      <Penghitung />
 
-          <form onSubmit={tambah}>
-            {/*menambahkan event onSubmit pada form untuk memanggil fungsi tambah saat tombol submit ditekan*/}
-            <input
-              type="text"
-              placeholder="Masukkan nama Anda"
-              onChange={(e) => setText(e.target.value)} //mengubah state text sesuai dengan input yang dimasukkan
-              value={text}
-            />
-            <button type="submit">Tambah</button>
-          </form>
-        </Kotak>
+      <Kartu judul="Tambah Tugas Baru">
+        <FormTugas onTambah={tambahTugas} />
+      </Kartu>
 
-        <Kotak judul="Kotak 2">
-          <ul>
-            {tugas.map(
-              (
-                data,
-                index, //menggunakan map untuk menampilkan data dari array tugas
-              ) => (
-                <li key={index}>
-                  {data}
-                  <button onClick={() => hapus(index)}>Hapus</button>{" "}
-                  {/*menambahkan tombol hapus untuk setiap item dalam daftar*/}
-                </li>
-              ),
-            )}
+      <Kartu judul="Daftar Tugas">
+        <p className="ringkasan">
+          {jumlahSelesai} dari {daftarTugas.length} tugas selesai
+        </p>
+
+        {/* Tugas 1: tombol filter, tombol aktif memakai className dinamis */}
+        <div className="baris filter">
+          {pilihanFilter.map((p) => (
+            <button
+              key={p.nilai}
+              className={
+                filter === p.nilai
+                  ? 'tombol tombol-kecil tombol-filter aktif'
+                  : 'tombol tombol-kecil tombol-filter'
+              }
+              onClick={() => setFilter(p.nilai)}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Conditional rendering dengan ternary: tampilkan pesan jika kosong */}
+        {tugasTampil.length === 0 ? (
+          <p className="kosong">
+            {daftarTugas.length === 0
+              ? 'Belum ada tugas. Yuk tambahkan tugas pertamamu!'
+              : 'Tidak ada tugas pada filter ini.'}
+          </p>
+        ) : (
+          <ul className="daftar">
+            {tugasTampil.map((tugas) => (
+              <ItemTugas
+                key={tugas.id}
+                tugas={tugas}
+                onUbahStatus={ubahStatus}
+                onHapus={hapusTugas}
+              />
+            ))}
           </ul>
-        </Kotak>
-      </div>
-    </>
+        )}
+
+        {/* Tugas 2: tombol hanya muncul jika ada minimal satu tugas selesai */}
+        {jumlahSelesai > 0 && (
+          <div className="aksi-bawah">
+            <button className="tombol tombol-merah tombol-kecil" onClick={hapusSelesai}>
+              Hapus Semua yang Selesai
+            </button>
+          </div>
+        )}
+      </Kartu>
+    </div>
   );
 }
-
 export default App;
