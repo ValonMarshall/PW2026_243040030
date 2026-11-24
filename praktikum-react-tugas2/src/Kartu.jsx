@@ -1,6 +1,5 @@
 //            Kartu sebagai komponen pembungkus
 
-
 function Kartu({ judul, children }) {
   return (
     <section className="kartu">

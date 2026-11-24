@@ -1,0 +1,141 @@
+/* src/App.css */
+.wadah {
+  background-image: url(assets/20_I01.png);
+  border-radius: 20px;
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  color: #000409;
+}
+
+.judul {
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.subjudul {
+  color: #6b7280;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.kartu {
+  background-color: white;
+  border: 1px solid #d0d7de;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+}
+
+.kartu h2 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #1b365d;
+}
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.baris {
+  display: flex;
+  gap: 8px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.tombol {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #1b365d;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tombol:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.tombol-merah {
+  background: #dc2626;
+}
+
+.tombol-kecil {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.galat {
+  color: #dc2626;
+  font-size: 13px;
+  margin: 0;
+}
+
+.saldo-label {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.saldo {
+  margin: 4px 0 12px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.rekap {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+}
+
+.daftar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.item .ket {
+  flex: 1;
+}
+
+.item .jenis {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.pemasukan {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.pengeluaran {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.kosong {
+  color: #6b7280;
+  text-align: center;
+  font-style: italic;
+}
